@@ -1,0 +1,37 @@
+<!-- 繼承base.html-->
+{% extends 'base.html' %}
+{% block title %}
+  主頁
+{% endblock %}
+
+{% block nav_brand %}
+<a class="navbar-brand" href="#">我是清單</a>
+{% endblock %}
+
+{% block content %}
+  <h1>Market Page</h1>
+  <table class="table table-hover table-dark">
+      <thead>
+          <tr>
+              <!-- Your Columns HERE -->
+              <th scope="col">Name</th>
+              <th scope="col">Position</th>
+              <th scope="col">Options</th>
+          </tr>
+      </thead>
+      <tbody>
+          <!-- Your rows inside the table HERE: -->
+          <!-- results 對應到role.py傳入的參數 -->
+          {% for user , role in page_results %}
+              <tr>
+                  <td>{{ user.Name }}</td>
+                  <td>{{ role.RoleName }}</td>
+                  <td>
+                      <button class="btn btn-outline btn-info">More Info</button>
+                      <button class="btn btn-outline btn-success">Purchase this Item</button>
+                  </td>
+              </tr>
+          {% endfor %}
+      </tbody>
+  </table>
+{% endblock %}

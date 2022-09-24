@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+註冊頁面
+{% endblock %}
+
+{% block content %}
+    <div class=container>
+        <h1>
+            please enter your account
+        </h1>
+        <form method="POST" class="form-register" style="color:white">
+            {{ page_form.hidden_tag() }}
+            {{ page_form.username.label() }}
+            {{ page_form.username(class="form-control", placeholder= "user name") }}
+            
+            {{ page_form.email_address.label() }}
+            {{ page_form.email_address(class="form-control", placeholder= "your email") }}
+
+            
+            {{ page_form.password1.label() }}
+            {{ page_form.password1(class="form-control", placeholder= "your password plz") }}
+
+            {{ page_form.password2.label() }}
+            {{ page_form.password2(class="form-control", placeholder= "re-your password plz") }}
+            
+            <br>
+            {{ page_form.submit(class="btn btn-lg btn-block btn-primary") }}
+        </form>
+    </div>
+    
+{% endblock %}
+
+
