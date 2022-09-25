@@ -4,7 +4,7 @@ import random
 from test_package import app ,db
 from flask import render_template , redirect , url_for ,flash ,get_flashed_messages
 from test_package.models import User, Role
-from test_package.form import RegisterForm
+from test_package.form import RegisterForm , LoginForm
 
 @app.route("/", methods = ['GET'])
 def home_page():
@@ -24,10 +24,10 @@ def register_page():
     if form.validate_on_submit():
         #建立一個User物件
         user_to_create = User(
-                            str(''.join(random.choices(string.ascii_uppercase + string.digits, k = 4))),
-                                form.username.data,
-                                form.email_address.data,
-                                form.password1.data
+                            U_id = str(''.join(random.choices(string.ascii_uppercase + string.digits, k = 4))),
+                            Name = form.username.data,
+                            Account = form.email_address.data,
+                            encrypted_password = form.password1.data
                             )
         #db新增一筆資料
         db.session.add(user_to_create)
@@ -42,6 +42,14 @@ def register_page():
 
     return render_template('register.html', page_form = form)
 
+@app.route('/login', methods=['GET','POST'])
+def login_page():
+    form=LoginForm()
+    return render_template('login.html',login_page_form = form)
+
+
 @app.route('/user/<username>')
 def profile(username):
     return f'{username}\'s profile'
+
+

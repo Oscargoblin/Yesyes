@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+  登入頁面
+{% endblock %}
+
+{% block nav_brand %}
+{% endblock %}
+
+{% block content %}
+<div class=container>
+    <h1>
+        請登入
+    </h1>
+    <form method="POST" class="form-signin" style="color:white">
+        {{ login_page_form.hidden_tag() }}
+
+        {{ login_page_form.username.label() }}
+        {{ login_page_form.username(class="form-control", placeholder= "user name") }}
+        
+        {{ login_page_form.password1.label() }}
+        {{ login_page_form.password1(class="form-control", placeholder= "your password plz") }}
+
+        <br>
+        {{ login_page_form.submit(class="btn btn-lg btn-block btn-primary") }}
+        <br>
+
+        <div class="checkbox mb-3">
+            <h6>Do not have an account?</h6>
+            <a class="btn btn-sm btn-secondary" href="{{ url_for('register_page') }}">Register</a>
+         </div>
+    </form>
+</div>
+{% endblock %}

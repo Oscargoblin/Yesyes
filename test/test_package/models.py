@@ -1,5 +1,5 @@
 from email.policy import default
-from test_package import db
+from test_package import db ,bcrypt
 
 #=========================================================================
 class User(db.Model):
@@ -7,20 +7,17 @@ class User(db.Model):
     U_id = db.Column(db.String(45), primary_key = True)
     Name = db.Column(db.String(45))
     Account = db.Column(db.String(45))
-    Password = db.Column(db.String(45))
+    Password = db.Column(db.String(1000))
     Role_id = db.Column(db.String(45), db.ForeignKey('role.R_id') ,default='1')
     
-    #__init__這裡要求幾個參數，在new一個User時就要傳入幾個參數
-    def __init__( self,uid, name, account, password):
-         self.U_id = uid
-         self.Name = name
-         self.Account = account
-         self.Password = password
+    @property
+    def encrypted_password(self):
+        return self.password
+    
+    @encrypted_password.setter
+    def encrypted_password(self,plain_text_password):
+        self.Password = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
 
-    
-    
-    def __repr__(self) :
-        return "<User('%s','%s', '%s')>\n" % (self.Name, self.Account, self.Password)
 
 #=========================================================================
 
