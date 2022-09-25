@@ -4,14 +4,14 @@
 > py -3 -m venv venv
 
 激活環境
-> venv\Scripts\activate
+>venv\Scripts\activate
 
 要運行應用程序，請使用flask命令
 flask --app hello run
 
 
 要啟用調試模式，使用該--debug選項。
-flask --app hello --debug run
+flask --app run --debug run
 
 要在虛擬機venv使用python
 > python
@@ -23,3 +23,5 @@ flask --app hello --debug run
 
 安裝 flask-wtf 表單library
 > pip install -U Flask-WTF
+
+123123123
