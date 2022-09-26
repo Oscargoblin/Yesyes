@@ -1,8 +1,9 @@
 import string
 import random
+from tabnanny import check
 
 from test_package import app ,db
-from flask import render_template , redirect , url_for ,flash ,get_flashed_messages
+from flask import render_template , redirect , url_for ,flash ,get_flashed_messages,session
 from test_package.models import User, Role
 from test_package.form import RegisterForm , LoginForm
 
@@ -12,10 +13,15 @@ def home_page():
 
 @app.route('/market')
 def market_page():
+    #如果當前有使用者登入，並且角色為管理員
+    if  session.get('user') and session.get('role')=='1':
+        results = db.session.query(User,Role).join(Role).all()
+        return render_template('market.html',page_results=results )
+    #如果沒有則導回login_page
+    else:
+        flash('你好像不是管理員，請重新登入', category='danger')
+        return redirect(url_for("login_page"))
     
-    results = db.session.query(User,Role).join(Role).all()
-    return render_template('market.html',page_results=results )
-
 @app.route('/register' , methods= ['GET','POST'])
 def register_page():
     #建立一個來自form.py 的 RegisterForm()
@@ -45,11 +51,38 @@ def register_page():
 @app.route('/login', methods=['GET','POST'])
 def login_page():
     form=LoginForm()
+    
+    if form.validate_on_submit():
+        #先從登入表單接資料下來，並拿去資料庫比對
+        attempted_user =  User.query.filter_by(Name=form.username.data).first()
+        #如果使用者存在，並且check_user_password()檢查表單傳入的密碼正確
+        if (attempted_user and attempted_user.check_user_password( attempted_password=form.password1.data ) ):
+            #將使用者登入，並創建cookie
+            session["user"] = attempted_user.Name
+            session["role"] = attempted_user.Role_id
+            
+            flash(f'Success! You are logged in as: {attempted_user.Name}', category='success')
+            return redirect(url_for("market_page"))
+        else:
+            flash('Username and password are not match! Please try again', category='danger')
+
+        
+    
     return render_template('login.html',login_page_form = form)
 
+#帶參數的def
+#return redirect(url_for('profile', username = attempted_user.Name))
 
-@app.route('/user/<username>')
-def profile(username):
-    return f'{username}\'s profile'
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('你已經登出', category='info')
+    return redirect(url_for("home_page"))
 
+@app.route('/user')
+def profile():
+    if session.get('user'):
+        user = session.get('user')
+        return f'{user}\'s profile'
+    return '你還沒登入'
 

@@ -36,15 +36,28 @@
                 <a class="nav-link" href="{{ url_for('market_page') }}">Market</a>
             </li>
         </ul>
+
+        {%if session['user'] %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#"> {{ session['user'] }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('login_page') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('register_page') }}">Register</a>
+                </li>
+            </ul>
+        {%endif%}
         <!--最右邊兩個按鈕 login register-->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('login_page') }}">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ url_for('register_page') }}">Register</a>
-            </li>
-        </ul>
+        
       </div>
     </nav>
         <!--此處的 get_flashed_messages 是對應到route裡面匯入的flask的 get_flashed_messages (其實不用匯入也沒關係，因為這個方法是給jinja template用的)-->

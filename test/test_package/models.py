@@ -17,7 +17,9 @@ class User(db.Model):
     @encrypted_password.setter
     def encrypted_password(self,plain_text_password):
         self.Password = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
-
+    
+    def check_user_password(self, attempted_password):
+        return bcrypt.check_password_hash(self.Password ,attempted_password)
 
 #=========================================================================
 

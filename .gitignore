@@ -1,0 +1,10 @@
+
+test/test_package/__pycache__/__init__.cpython-310.pyc
+test/test_package/__pycache__/form.cpython-310.pyc
+test/test_package/__pycache__/models.cpython-310.pyc
+test/test_package/__pycache__/routes.cpython-310.pyc
+test/test_package/__pycache__/__init__.cpython-310.pyc
+test/test_package/__pycache__/form.cpython-310.pyc
+test/test_package/__pycache__/models.cpython-310.pyc
+test/test_package/__pycache__/routes.cpython-310.pyc
+*.pyc
