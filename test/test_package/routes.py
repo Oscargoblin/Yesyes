@@ -57,7 +57,7 @@ def login_page():
         attempted_user =  User.query.filter_by(Name=form.username.data).first()
         #如果使用者存在，並且check_user_password()檢查表單傳入的密碼正確
         if (attempted_user and attempted_user.check_user_password( attempted_password=form.password1.data ) ):
-            #將使用者登入，並創建cookie
+            #將使用者登入，並創建session
             session["user"] = attempted_user.Name
             session["role"] = attempted_user.Role_id
             

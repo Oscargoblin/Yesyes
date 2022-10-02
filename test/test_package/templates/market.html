@@ -9,29 +9,41 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Market Page</h1>
-  <table class="table table-hover table-dark">
-      <thead>
-          <tr>
-              <!-- Your Columns HERE -->
-              <th scope="col">Name</th>
-              <th scope="col">Position</th>
-              <th scope="col">Options</th>
-          </tr>
-      </thead>
-      <tbody>
-          <!-- Your rows inside the table HERE: -->
-          <!-- results 對應到role.py傳入的參數 -->
-          {% for user , role in page_results %}
-              <tr>
-                  <td>{{ user.Name }}</td>
-                  <td>{{ role.RoleName }}</td>
-                  <td>
-                      <button class="btn btn-outline btn-info">More Info</button>
-                      <button class="btn btn-outline btn-success">Purchase this Item</button>
-                  </td>
-              </tr>
-          {% endfor %}
-      </tbody>
-  </table>
+
+<div class="row">
+    <!-- 將頁面分成8:4 -->
+    <div class="col-8" style="margin-top:20px ;margin-left:20px">
+        <h1>Market Page</h1>
+        <table class="table table-hover table-dark">
+            <thead>
+                <tr>
+                    <!-- Your Columns HERE -->
+                    <th scope="col">Name</th>
+                    <th scope="col">Position</th>
+                    <th scope="col">Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Your rows inside the table HERE: -->
+                <!-- results 對應到role.py傳入的參數 -->
+                {% for user , role in page_results %}
+                    <!-- include相當於延伸了html程式碼，一樣可以收到user , role 等object-->
+                    {% include 'includes/mod_user_modal.html' %}
+                    <tr>
+                        <td>{{ user.Name }}</td>
+                        <td>{{ role.RoleName }}</td>
+                        <td>
+                            <!-- 點按按鈕會開啟 id="Modal-MoreInfo-{{ user.U_id }} 的modal-->
+                            <button class="btn btn-outline btn-info" data-toggle="modal" data-target="#Modal-MoreInfo-{{ user.U_id }}" >More Info</button>
+                            <button class="btn btn-outline btn-success"  data-toggle="modal" data-target="#Modal-ModInfo-{{ user.U_id }}">Manage User</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- 將頁面分成8:4 -->
+    <div class="col-4">col-4</div>
+  </div>
+  
 {% endblock %}
