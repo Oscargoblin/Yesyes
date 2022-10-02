@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-C:\Users\shend\eclipse-workspace2022\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2818915830.index
-\eco_sreetlight\src\main\java
