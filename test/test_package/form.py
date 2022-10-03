@@ -1,7 +1,8 @@
-from flask_wtf import FlaskForm
-from wtforms import StringField , PasswordField ,SubmitField
+from flask_wtf import FlaskForm 
+from wtforms import StringField , PasswordField ,SubmitField 
 from wtforms.validators import Length,EqualTo, Email , DataRequired ,ValidationError
 from test_package.models import User
+from wtforms import SelectField 
 
 class RegisterForm(FlaskForm):
     
@@ -32,3 +33,4 @@ class LoginForm(FlaskForm):
     username = StringField(label= '使用者名稱', validators=[DataRequired()])
     password1 = PasswordField(label= '密碼' , validators=[Length(min=4,max=20), DataRequired()])
     submit = SubmitField(label = '登入')
+

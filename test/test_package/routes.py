@@ -3,9 +3,9 @@ import random
 from tabnanny import check
 
 from test_package import app ,db
-from flask import render_template , redirect , url_for ,flash ,get_flashed_messages,session
+from flask import render_template , redirect, request , url_for ,flash ,get_flashed_messages,session
 from test_package.models import User, Role
-from test_package.form import RegisterForm , LoginForm
+from test_package.form import  RegisterForm , LoginForm
 
 @app.route("/", methods = ['GET'])
 def home_page():
@@ -72,6 +72,13 @@ def login_page():
 
 #帶參數的def
 #return redirect(url_for('profile', username = attempted_user.Name))
+
+@app.route('/mod_user' , methods= ['GET' ,'POST'])
+def mod_user_page():
+
+    user_role = request.args.get("user_role")
+    return "Hello"+str(user_role)
+    #return render_template('modify_user.html')
 
 @app.route('/logout')
 def logout():
