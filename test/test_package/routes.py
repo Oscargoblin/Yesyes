@@ -1,9 +1,10 @@
+
 import string
 import random
-from tabnanny import check
 
 from test_package import app ,db
 from flask import render_template , redirect, request , url_for ,flash ,get_flashed_messages,session
+from test_package import form
 from test_package.models import User, Role
 from test_package.form import  RegisterForm , LoginForm
 
@@ -73,12 +74,24 @@ def login_page():
 #帶參數的def
 #return redirect(url_for('profile', username = attempted_user.Name))
 
-@app.route('/mod_user' , methods= ['GET' ,'POST'])
-def mod_user_page():
+@app.route('/mod_user/<get_user_id>' , methods= ['GET' ,'POST'])
+def mod_user_page(get_user_id):
 
-    user_role = request.args.get("user_role")
-    return "Hello"+str(user_role)
-    #return render_template('modify_user.html')
+    user = User.query.filter_by(U_id= get_user_id).first()
+    roles = Role.query.all()
+    
+    if request.method == 'POST':
+        roleName = request.form.get('roleList')
+        user.Role_id = Role.query.filter_by( RoleName = roleName).first().R_id
+        user.Name = request.form.get('newName')
+        user.Account = request.form.get('newEmail')
+        user.Password = request.form.get('newPassword')
+        
+        db.session.commit()
+        return redirect(url_for("market_page"))
+        
+        
+    return render_template('modify_user.html' , user_to_mod = user ,roll_list=roles)
 
 @app.route('/logout')
 def logout():

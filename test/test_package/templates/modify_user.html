@@ -7,16 +7,31 @@
 {% block content %}
     <div class=container>
         <h1>
-            please enter your account
+            用戶修改
         </h1>
+            </br>
         <form method="POST" class="form-register" style="color:white">
-            <input name="myfield" >
-        </form>
+            <select name="roleList" class="form-control" >
+                {% for role in roll_list %}
+                    {% if role.R_id == user_to_mod.Role_id %}
+                        <option value="{{role.RoleName}}" selected="selected">{{role.RoleName}}</option>
+                    {% else %}
+                        <option value="{{role.RoleName}}" >{{role.RoleName}}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+                </br>
+            <input name="newName" value="{{user_to_mod.Name}}" class="form-control", placeholder= "user name" >
+                </br>
+            <input name="newEmail" value="{{user_to_mod.Account}}" class="form-control", placeholder= "user name" >
+                </br>
+            <input name="newPassword"  class="form-control", placeholder= "user password" >
+                </br>
+            <input name="newComfirmPassword"  class="form-control", placeholder= "comfirm password" >
+                </br>
+            <input class="btn btn-sm btn-secondary" type="submit" value="確定修改">
         </br>
-        <div>
-            <h6> 已有帳號? </h6>
-            <a class="btn btn-sm btn-secondary" href="{{ url_for('login_page') }}"">去登入</a>
-        </div>
+        
     </div>
     
 {% endblock %}
