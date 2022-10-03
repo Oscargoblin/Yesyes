@@ -25,3 +25,6 @@ flask --app run --debug run
 > pip install -U Flask-WTF
 
 1231231234
+dfghijkhukilhhlihli
+
+pip install flask flask_sqlalchemy flask_wtf email_validator flask_bcrypt pymysql
